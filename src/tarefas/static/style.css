@@ -1,0 +1,18 @@
+body{
+    background-color: rgb(154, 50, 171);
+}
+h1{
+    color:rgb(205, 116, 237)
+}
+button{
+    color:rgb(97, 10, 129)
+}
+input{
+  color:rgb(97, 10, 129)
+}
+p{ 
+    color: black;
+    font-size: 25px;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+    
+}

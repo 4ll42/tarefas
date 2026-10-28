@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{titulo}}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1> Digite a tarefa e a data de conclusão (opcional):</h1>
+    <input type="text" id="tituloTarefa">
+    <input type="date" id="dataConclusao">
+    <button type="button" onclick="adicionarTarefa()">Adicionar</button>
+    <output id="listaTarefas">Nenhuma tarefa cadastrada</output>
+
+     <pre style="font-family: monospace; font-size: 14px; line-height: 1; color: rgb(212, 95, 248);  
+    line-height: 1;">
+⠀
+⠀⠀⠀⢠⡾⠲⠶⣤⣀⣠⣤⣤⣤⡿⠛⠿⡴⠾⠛⢻⡆⠀⠀⠀
+⠀⠀⠀⣼⠁⠀⠀⠀⠉⠁⠀⢀⣿⠐⡿⣿⠿⣶⣤⣤⣷⡀⠀⠀
+⠀⠀⠀⢹⡶⠀⠀⠀⠀⠀⠀⠈⢯⣡⣿⣿⣀⣸⣿⣦⢓⡟⠀⠀
+⠀⠀⢀⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠹⣍⣭⣾⠁⠀⠀
+⠀⣀⣸⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣸⣷⣤⡀
+⠈⠉⠹⣏⡁⠀⢸⣿⠀⠀⠀⢀⡀⠀⠀⠀⣿⠆⠀⢀⣸⣇⣀⠀
+⠀⠐⠋⢻⣅⣄⢀⣀⣀⡀⠀⠯⠽⠂⢀⣀⣀⡀⠀⣤⣿⠀⠉⠀
+⠀⠀⠴⠛⠙⣳⠋⠉⠉⠙⣆⠀⠀⢰⡟⠉⠈⠙⢷⠟⠉⠙⠂⠀
+⠀⠀⠀⠀⠀⢻⣄⣠⣤⣴⠟⠛⠛⠛⢧⣤⣤⣀⡾ ⠀⠀⠀⠀⠀⠀⠀⠀
+</pre>
+
+
+    <script>
+        //Aplicação MVC (modelagem-Visualizaqção-contrle)
+
+    let tarefas;
+    const tarefasSalvas = JSON.parse(localStorage.getItem('tarefas'));
+
+    if (Array.isArray(tarefasSalvas)){
+        tarefas = tarefasSalvas;
+    } else{
+        tarefas = [];
+    }
+
+    function salvarTarefas(){
+        localStorage.setItem('tarefas', JSON.stringify(tarefas));
+    }
+
+    // Seção de Visualização
+    function renderizarTarefas(){
+        const listaTarefas = document.getElementById('listaTarefas');
+        listaTarefas.innerHTML = "";
+
+        tarefas.forEach(function(tarefa) {
+            const divTarefa = document.createElement('div');
+            divTarefa.innerHTML = tarefa.tituloTarefa + ' - ' + tarefa.dataConclusao;
+        
+            const botaoApagar = document.createElement('button');
+            botaoApagar.innerHTML = "❌Apagar";
+            botaoApagar.onclick = apagarTarefa;
+            botaoApagar.id = tarefa.idTarefa;
+
+            divTarefa.appendChild(botaoApagar);
+            listaTarefas.appendChild(divTarefa);
+        });
+    }
+
+    // seção de Controle
+    function adicionarTarefa(){
+        const tituloTarefa = document.getElementById('tituloTarefa').value;
+        const dataConclusao = document.getElementById('dataConclusao').value;
+
+        tarefas.push(
+        {
+            tituloTarefa: tituloTarefa,
+            dataConclusao: dataConclusao,
+            idTarefa: Date.now()
+        
+        }
+        
+        
+
+    );
+    salvarTarefas();
+    renderizarTarefas();    
+    }
+    
+
+    function apagarTarefa(evento) {
+        const botaoClicado = evento.target;
+        const idTarefa = botaoClicado.id;
+        tarefas = tarefas.filter(function(tarefa){
+            if (tarefa.idTarefa == idTarefa){
+                return false;
+            }else{
+                return true;
+            }
+        });
+        salvarTarefas();
+        renderizarTarefas();   
+    }
+    renderizarTarefas();
+    </script>
+
+</body>
+</html>

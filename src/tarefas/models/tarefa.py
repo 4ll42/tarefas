@@ -45,6 +45,43 @@ class Tarefa:
         with Database() as db:
             db.executar(sql, params)
  
+    @classmethod
+    def carregarTarefa(cls, id_tarefa):
+        """Carrega uma tarefa específica do banco de dados na memória."""
+        sql = 'SELECT id_tarefa, titulo_tarefa, data_conclusao FROM tarefa WHERE id_tarefa = %s;'
+        params = (id_tarefa,)
+       
+        with Database() as db:
+            resultado = db.executar(sql, params)
+           
+        if resultado:
+            dados = resultado[0]
+            return cls(titulo=dados['titulo_tarefa'], id=dados['id_tarefa'], data_conclusao=dados['data_conclusao'])
+        return None
+ 
+    def atualizarTarefa(self):
+        """Atualiza a tarefa existente no banco com os novos valores."""
+        sql = '''UPDATE tarefa
+                 SET titulo_tarefa = %s, data_conclusao = %s
+                 WHERE id_tarefa = %s;'''
+        params = (self.titulo, self.data_conclusao, self.id)
+       
+        with Database() as db:
+            db.executar(sql, params)
+ 
+class Renomear:
+    def __init__(self, id,  n_titulo, n_data_conclusao = None ):
+        self.n_titulo = n_titulo
+        self.n_data_conclusao = n_data_conclusao
+ 
+    def Alterar():
+        sql = '''UPDATE nome_da_tabela
+                SET
+                titulo_tarefa = '',
+                data_conclusao = 00:00:00
+                WHERE
+                id = id;'''
+ 
 # Área 51 (testes)
 #tarefa = Tarefa('Minha nova tarefa')
 #tarefa.salvarTarefa()

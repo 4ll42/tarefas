@@ -16,3 +16,26 @@ p{
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
     
 }
+
+#listaTarefas div, ul li{
+    background-color: aliceblue;
+    border: 2px dashed;
+    padding: 12 px 20 px;
+    color: blueviolet;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 3px 8px rgba(244, 194, 208, 0.4);
+    list-style: none;
+}
+#listaTarefas button, ul li a {
+    background-color: aliceblue;
+    border: 1px solid;
+    padding: 5 px 12 px;
+    color: rgb(205, 167, 240);
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 3px 8px rgba(176, 94, 208, 0.4);
+    list-style: none;
+}

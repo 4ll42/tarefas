@@ -108,4 +108,3 @@ def init_db(sql_filepath=SQL_PATH):
     except FileNotFoundError:
         print('O arquivo especificado não pode ser encontrado')
 
-xfUiHH9SrBukZpN2

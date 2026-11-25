@@ -4,8 +4,8 @@ from tarefas.models.database import Database
  
  
 class Tarefa:
-    """Provê métodos para armazenar, recuperar e processar os dados das
-    tarefas criadas a partir do formulário principal.
+    """Provê métodos para armazenar, recuperar e processar os dados 
+    das tarefas criadas a partir do formulário principal.
     """
  
     def __init__(self, titulo, id = None, data_conclusao = None):
@@ -17,7 +17,8 @@ class Tarefa:
     def salvarTarefa(self):
         """Salva a tarefa no banco de dados."""
  
-        sql = 'INSERT INTO tarefa (titulo_tarefa, data_conclusao) VALUES (%s, %s);'
+        sql = 'INSERT INTO tarefa (titulo_tarefa,' \
+        ' data_conclusao) VALUES (%s, %s);'
         params = (self.titulo, self.data_conclusao)
  
         with Database() as db:
@@ -48,7 +49,8 @@ class Tarefa:
     @classmethod
     def carregarTarefa(cls, id_tarefa):
         """Carrega uma tarefa específica do banco de dados na memória."""
-        sql = 'SELECT id_tarefa, titulo_tarefa, data_conclusao FROM tarefa WHERE id_tarefa = %s;'
+        sql = 'SELECT id_tarefa, titulo_tarefa, ' \
+        'data_conclusao FROM tarefa WHERE id_tarefa = %s;'
         params = (id_tarefa,)
        
         with Database() as db:
@@ -56,7 +58,8 @@ class Tarefa:
            
         if resultado:
             dados = resultado[0]
-            return cls(titulo=dados['titulo_tarefa'], id=dados['id_tarefa'], data_conclusao=dados['data_conclusao'])
+            return cls(titulo=dados['titulo_tarefa'], 
+            id=dados['id_tarefa'], data_conclusao=dados['data_conclusao'])
         return None
  
     def atualizarTarefa(self):
@@ -82,7 +85,4 @@ class Renomear:
                 WHERE
                 id = id;'''
  
-# Área 51 (testes)
-#tarefa = Tarefa('Minha nova tarefa')
-#tarefa.salvarTarefa()
  
